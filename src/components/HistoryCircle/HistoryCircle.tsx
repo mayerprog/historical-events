@@ -17,8 +17,8 @@ const HistoryCircle: React.FC = () => {
               className={styles.smallCircle}
               style={{
                 transform: `rotate(${
-                  index * (360 / smallCircles.length)
-                }deg) translate(0, -250px)`,
+                  index * (360 / smallCircles.length) + 30
+                }deg) translate(0, -225px)`,
               }}
             ></div>
           ))}
