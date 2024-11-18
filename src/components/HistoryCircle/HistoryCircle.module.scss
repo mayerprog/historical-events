@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  min-height: 800px;
+  width: 80%;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #333;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  color: #42567a;
+  font-family: "PT Sans", sans-serif;
+  width: 30%;
+}
+
+.circleContainer {
+  position: relative;
+  width: 450px;
+  height: 450px;
+  top: -5%;
+}
+
+.circle {
+  width: 450px;
+  height: 450px;
+  border: 0.5px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date {
+  position: absolute;
+  font-size: 150px;
+  font-weight: 700;
+  font-family: "PT Sans", sans-serif;
+  z-index: 999;
+
+  &.left {
+    right: 60%;
+    color: #5d5fef;
+  }
+
+  &.right {
+    left: 55%;
+    color: #ef5da8;
+  }
+}
+
+.axisX,
+.axisY {
+  position: absolute;
+  background-color: #ccc;
+}
+
+.axisX {
+  width: 100%;
+  height: 0.5px;
+  top: 45%;
+  left: 0;
+}
+
+.axisY {
+  width: 0.5px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+}
+
+.smallCircle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: lightgray;
+  border-radius: 50%;
+}

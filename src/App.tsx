@@ -1,11 +1,11 @@
 import React from "react";
-import CircleComponent from "./components/CircleComponent/CircleComponent";
+import HistoryCircle from "./components/HistoryCircle/HistoryCircle";
+import styles from "./App.module.scss";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Yo!</h1>
-      <CircleComponent />
+    <div className={styles.container}>
+      <HistoryCircle />
     </div>
   );
 };
