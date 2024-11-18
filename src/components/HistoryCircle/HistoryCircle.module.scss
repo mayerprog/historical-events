@@ -78,10 +78,40 @@
   top: 0;
 }
 
-.smallCircle {
+.closedCircle,
+.openedCircle {
   position: absolute;
+  border-radius: 50%;
+}
+
+.closedCircle {
   width: 10px;
   height: 10px;
-  background-color: lightgray;
-  border-radius: 50%;
+  background-color: rgb(140, 140, 140);
+  z-index: 1000;
+}
+
+.openedCircle {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  z-index: 998;
+  cursor: pointer;
+}
+
+.circleNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #767676;
+  font-family: "PT Sans", sans-serif;
+  pointer-events: none;
 }
