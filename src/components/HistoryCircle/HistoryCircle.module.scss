@@ -114,13 +114,14 @@
   color: #767676;
   font-family: "PT Sans", sans-serif;
   pointer-events: none;
-  transform: rotate(-30deg);
 }
 
 .circleNumber.active {
-  opacity: 1; /* Полная видимость */
+  opacity: 1;
+  scale: 1;
 }
 
 .circleNumber.hidden {
-  opacity: 0; /* Полная видимость */
+  opacity: 0;
+  scale: 0.8;
 }

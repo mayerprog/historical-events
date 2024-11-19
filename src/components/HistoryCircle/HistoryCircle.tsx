@@ -36,6 +36,15 @@ const HistoryCircle: React.FC = () => {
       onComplete: () => setActiveIndex(index),
     });
 
+    circleRefs.current.forEach((circle, i) => {
+      if (circle) {
+        gsap.to(circle, {
+          rotation: `-=${rotationDiff}`,
+          duration: duration,
+        });
+      }
+    });
+
     const currentCircle = circleRefs.current[activeIndex];
     const nextCircle = circleRefs.current[index];
     const currentCircleNumber = circleNumberRefs.current[activeIndex];
@@ -49,13 +58,14 @@ const HistoryCircle: React.FC = () => {
         duration: 0.5,
         ease: "power1.inOut",
       });
-      if (currentCircleNumber) {
-        gsap.fromTo(
-          currentCircleNumber,
-          { opacity: 1, scale: 1 },
-          { opacity: 0, scale: 0.8, duration: 0.5, ease: "power1.inOut" }
-        );
-      }
+    }
+    if (currentCircleNumber) {
+      gsap.to(currentCircleNumber, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
     }
     if (nextCircle) {
       gsap.to(nextCircle, {
@@ -65,15 +75,64 @@ const HistoryCircle: React.FC = () => {
         backgroundColor: "#f9f9f9",
         zIndex: "998",
         duration: 0.5,
-        ease: "expo.inOut",
+        ease: "power1.inOut",
       });
-      if (nextCircleNumber) {
-        gsap.fromTo(
-          nextCircleNumber,
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 0.5, ease: "power1.inOut" }
-        );
-      }
+    }
+    if (nextCircleNumber) {
+      gsap.to(nextCircleNumber, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "power1.inOut",
+      });
+    }
+  };
+
+  const handleMouseEnter = (index: number) => {
+    const nextCircle = circleRefs.current[index];
+    const nextCircleNumber = circleNumberRefs.current[index];
+
+    if (nextCircle) {
+      gsap.to(nextCircle, {
+        width: 50,
+        height: 50,
+        border: "1px solid #ccc",
+        backgroundColor: "#f9f9f9",
+        zIndex: "998",
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+    }
+    if (nextCircleNumber) {
+      gsap.to(nextCircleNumber, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+    }
+  };
+
+  const handleMouseLeave = (index: number) => {
+    const currentCircle = circleRefs.current[index];
+    const currentCircleNumber = circleNumberRefs.current[index];
+
+    if (currentCircle) {
+      gsap.to(currentCircle, {
+        width: 8,
+        height: 8,
+        backgroundColor: "#6A6A6A",
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+    }
+    if (currentCircleNumber) {
+      gsap.to(currentCircleNumber, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
     }
   };
 
@@ -96,6 +155,8 @@ const HistoryCircle: React.FC = () => {
                 )}deg) translate(0, -225px)`,
               }}
               onClick={() => handleEventClick(index)}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={() => handleMouseLeave(index)}
               ref={(el) => (circleRefs.current[index] = el)}
             >
               <span
@@ -103,6 +164,9 @@ const HistoryCircle: React.FC = () => {
                   index === activeIndex ? styles.active : styles.hidden
                 }`}
                 ref={(el) => (circleNumberRefs.current[index] = el)}
+                style={{
+                  transform: `rotate(-${rotateDegree(index)}deg)`,
+                }}
               >
                 {index + 1}
               </span>
