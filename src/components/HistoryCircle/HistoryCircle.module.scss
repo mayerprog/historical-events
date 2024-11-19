@@ -87,9 +87,9 @@
 }
 
 .closedCircle {
-  width: 10px;
-  height: 10px;
-  background-color: rgb(140, 140, 140);
+  width: 8px;
+  height: 8px;
+  background-color: rgb(106, 106, 106);
 }
 
 .openedCircle {
@@ -115,4 +115,12 @@
   font-family: "PT Sans", sans-serif;
   pointer-events: none;
   transform: rotate(-30deg);
+}
+
+.circleNumber.active {
+  opacity: 1; /* Полная видимость */
+}
+
+.circleNumber.hidden {
+  opacity: 0; /* Полная видимость */
 }
