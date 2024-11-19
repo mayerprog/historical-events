@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./HistoryCircle.module.scss";
 import events from "./../../../mock-data.json";
+import gsap from "gsap";
 
 interface Area {
   area: string;
@@ -14,26 +15,29 @@ interface Year {
 
 const HistoryCircle: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const circleRef = useRef<HTMLDivElement>(null);
 
   const chosenYears = events[activeIndex].years;
 
   const rotateDegree = (index: number) => index * (360 / events.length) + 30;
 
   const handleEventClick = (index: number) => {
-    setActiveIndex(index);
+    if (index === activeIndex) return;
+    const rotationDiff = (activeIndex - index) * (360 / events.length);
+
+    gsap.to(circleRef.current, {
+      rotation: `+=${rotationDiff}`,
+      duration: Math.abs(rotationDiff) / 360,
+      ease: "power2.inOut",
+      onComplete: () => setActiveIndex(index),
+    });
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Исторические даты</h1>
       <div className={styles.circleContainer}>
-        <div className={styles.circle}>
-          <span className={`${styles.date} ${styles.left}`}>
-            {chosenYears[0]?.year}
-          </span>
-          <span className={`${styles.date} ${styles.right}`}>
-            {chosenYears[chosenYears.length - 1]?.year}
-          </span>
+        <div className={styles.circle} ref={circleRef}>
           {events.map((_, index) => (
             <div
               key={index}
@@ -62,6 +66,12 @@ const HistoryCircle: React.FC = () => {
             </div>
           ))}
         </div>
+        <span className={`${styles.date} ${styles.left}`}>
+          {chosenYears[0]?.year}
+        </span>
+        <span className={`${styles.date} ${styles.right}`}>
+          {chosenYears[chosenYears.length - 1]?.year}
+        </span>
       </div>
 
       <div className={styles.axisX}></div>

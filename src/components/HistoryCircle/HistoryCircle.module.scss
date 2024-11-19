@@ -32,12 +32,13 @@
 .circle {
   width: 450px;
   height: 450px;
-  border: 0.5px solid #ccc;
+  border: 0.5px solid #d0d5e0;
   border-radius: 50%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .date {
@@ -46,14 +47,14 @@
   font-weight: 700;
   font-family: "PT Sans", sans-serif;
   z-index: 999;
-
+  top: 28%;
   &.left {
     right: 60%;
     color: #5d5fef;
   }
 
   &.right {
-    left: 55%;
+    left: 60%;
     color: #ef5da8;
   }
 }
@@ -82,13 +83,13 @@
 .openedCircle {
   position: absolute;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .closedCircle {
   width: 10px;
   height: 10px;
   background-color: rgb(140, 140, 140);
-  z-index: 1000;
 }
 
 .openedCircle {
@@ -100,7 +101,6 @@
   justify-content: center;
   background-color: #f9f9f9;
   z-index: 998;
-  cursor: pointer;
 }
 
 .circleNumber {
