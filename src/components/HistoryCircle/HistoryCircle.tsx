@@ -24,11 +24,12 @@ const HistoryCircle: React.FC = () => {
   const handleEventClick = (index: number) => {
     if (index === activeIndex) return;
     const rotationDiff = (activeIndex - index) * (360 / events.length);
+    const duration = Math.min(0.9, 1 / (Math.abs(rotationDiff) / 360));
 
     gsap.to(circleRef.current, {
       rotation: `+=${rotationDiff}`,
-      duration: Math.abs(rotationDiff) / 360,
-      ease: "power2.inOut",
+      duration: duration,
+      ease: "power1.inOut",
       onComplete: () => setActiveIndex(index),
     });
   };
@@ -54,14 +55,7 @@ const HistoryCircle: React.FC = () => {
               onClick={() => handleEventClick(index)}
             >
               {index === activeIndex && (
-                <span
-                  // style={{
-                  //   transform: `rotate(-${rotateDegree(index)}deg)`,
-                  // }}
-                  className={styles.circleNumber}
-                >
-                  {index + 1}
-                </span>
+                <span className={styles.circleNumber}>{index + 1}</span>
               )}
             </div>
           ))}
