@@ -15,10 +15,11 @@ interface Year {
 
 const HistoryCircle: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const circleRef = useRef<HTMLDivElement>(null);
 
+  const circleRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const circleNumberRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const ignoreMouseLeaveRef = useRef<number | null>(null);
 
   const chosenYears = events[activeIndex].years;
 
@@ -26,6 +27,7 @@ const HistoryCircle: React.FC = () => {
 
   const handleEventClick = (index: number) => {
     if (index === activeIndex) return;
+    ignoreMouseLeaveRef.current = index;
     const rotationDiff = (activeIndex - index) * (360 / events.length);
     const duration = Math.min(0.8, 1 / (Math.abs(rotationDiff) / 360));
 
@@ -33,7 +35,10 @@ const HistoryCircle: React.FC = () => {
       rotation: `+=${rotationDiff}`,
       duration: duration,
       ease: "power1.inOut",
-      onComplete: () => setActiveIndex(index),
+      onComplete: () => {
+        setActiveIndex(index);
+        ignoreMouseLeaveRef.current = null;
+      },
     });
 
     circleRefs.current.forEach((circle, i) => {
@@ -114,6 +119,8 @@ const HistoryCircle: React.FC = () => {
   };
 
   const handleMouseLeave = (index: number) => {
+    if (index === ignoreMouseLeaveRef.current) return;
+
     const currentCircle = circleRefs.current[index];
     const currentCircleNumber = circleNumberRefs.current[index];
 
