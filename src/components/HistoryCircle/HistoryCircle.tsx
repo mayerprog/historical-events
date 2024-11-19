@@ -55,9 +55,9 @@ const HistoryCircle: React.FC = () => {
             >
               {index === activeIndex && (
                 <span
-                  style={{
-                    transform: `rotate(-${rotateDegree(index)}deg)`,
-                  }}
+                  // style={{
+                  //   transform: `rotate(-${rotateDegree(index)}deg)`,
+                  // }}
                   className={styles.circleNumber}
                 >
                   {index + 1}
