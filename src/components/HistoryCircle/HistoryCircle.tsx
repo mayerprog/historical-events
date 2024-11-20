@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import styles from "./HistoryCircle.module.scss";
 import events from "./../../../mock-data.json";
 import gsap from "gsap";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 interface Area {
   area: string;
@@ -22,13 +23,19 @@ const HistoryCircle: React.FC = () => {
   const ignoreMouseLeaveRef = useRef<number | null>(null);
   const startYearRef = useRef<HTMLSpanElement>(null);
   const endYearRef = useRef<HTMLSpanElement>(null);
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const chosenYears = events[activeIndex].years;
 
   const rotateDegree = (index: number) => index * (360 / events.length) + 30;
 
   const handleEventClick = (index: number) => {
-    if (index === activeIndex) return;
+    if (index === activeIndex || clickTimeout.current) return;
+
+    clickTimeout.current = setTimeout(() => {
+      clickTimeout.current = null;
+    }, 800);
+
     ignoreMouseLeaveRef.current = index;
     const rotationDiff = (activeIndex - index) * (360 / events.length);
     const duration = Math.min(0.8, 1 / (Math.abs(rotationDiff) / 360));
@@ -239,6 +246,23 @@ const HistoryCircle: React.FC = () => {
         <span className={`${styles.date} ${styles.right}`} ref={endYearRef}>
           {chosenYears[chosenYears.length - 1].year}
         </span>
+      </div>
+      <div className={styles.arrowsContainer}>
+        <span>{`0${activeIndex + 1}/0${events.length}`}</span>
+        <div className={styles.arrows}>
+          <div
+            className={styles.arrowCircle}
+            onClick={() => handleEventClick(activeIndex - 1)}
+          >
+            <IoIosArrowBack />
+          </div>
+          <div
+            className={styles.arrowCircle}
+            onClick={() => handleEventClick(activeIndex + 1)}
+          >
+            <IoIosArrowForward />
+          </div>
+        </div>
       </div>
 
       <div className={styles.axisX}></div>
