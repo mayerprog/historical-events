@@ -16,11 +16,12 @@ interface Year {
 
 const HistoryCircle: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const circleRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const circleNumberRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const ignoreMouseLeaveRef = useRef<number | null>(null);
+  const ignoreMouseLeaveRef = useRef<number>(0);
   const startYearRef = useRef<HTMLSpanElement>(null);
   const endYearRef = useRef<HTMLSpanElement>(null);
   const clickTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -31,10 +32,15 @@ const HistoryCircle: React.FC = () => {
 
   const handleEventClick = (index: number) => {
     if (index === activeIndex || clickTimeout.current) return;
+    if (index === events.length) index = 0;
+    if (index < 0) index = events.length - 1;
+
+    setCurrentIndex(index);
 
     clickTimeout.current = setTimeout(() => {
       clickTimeout.current = null;
     }, 800);
+    console.log("index", index);
 
     ignoreMouseLeaveRef.current = index;
     const rotationDiff = (activeIndex - index) * (360 / events.length);
@@ -46,7 +52,6 @@ const HistoryCircle: React.FC = () => {
       ease: "power1.inOut",
       onComplete: () => {
         setActiveIndex(index);
-        ignoreMouseLeaveRef.current = null;
       },
     });
 
@@ -248,7 +253,7 @@ const HistoryCircle: React.FC = () => {
         </span>
       </div>
       <div className={styles.arrowsContainer}>
-        <span>{`0${activeIndex + 1}/0${events.length}`}</span>
+        <span>{`0${currentIndex + 1}/0${events.length}`}</span>
         <div className={styles.arrows}>
           <div
             className={styles.arrowCircle}
