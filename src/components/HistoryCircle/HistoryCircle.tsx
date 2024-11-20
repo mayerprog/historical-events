@@ -20,6 +20,8 @@ const HistoryCircle: React.FC = () => {
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const circleNumberRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const ignoreMouseLeaveRef = useRef<number | null>(null);
+  const startYearRef = useRef<HTMLSpanElement>(null);
+  const endYearRef = useRef<HTMLSpanElement>(null);
 
   const chosenYears = events[activeIndex].years;
 
@@ -90,6 +92,57 @@ const HistoryCircle: React.FC = () => {
         duration: 0.6,
         ease: "power1.inOut",
       });
+    }
+
+    const currentYears = events[activeIndex].years;
+    const nextYears = events[index].years;
+    const currentStartYear = parseInt(currentYears[0].year);
+    const currentEndYear = parseInt(currentYears[currentYears.length - 1].year);
+    const nextStartYear = parseInt(nextYears[0].year);
+    const nextEndYear = parseInt(nextYears[nextYears.length - 1].year);
+    const skipPercentage = 0.3;
+    const adjustedStartValue =
+      nextStartYear > currentStartYear
+        ? currentStartYear +
+          Math.ceil((nextStartYear - currentStartYear) * skipPercentage)
+        : currentStartYear -
+          Math.ceil((currentStartYear - nextStartYear) * skipPercentage);
+
+    const adjustedEndValue =
+      nextEndYear > currentEndYear
+        ? currentEndYear +
+          Math.ceil((nextEndYear - currentEndYear) * skipPercentage)
+        : currentEndYear -
+          Math.ceil((currentEndYear - nextEndYear) * skipPercentage);
+
+    if (startYearRef.current && endYearRef.current) {
+      gsap.to(
+        { year: adjustedStartValue },
+        {
+          year: nextStartYear,
+          duration: duration,
+          ease: "sine.out",
+          onUpdate: function () {
+            startYearRef.current!.textContent = Math.round(
+              this.targets()[0].year
+            ).toString();
+          },
+        }
+      );
+
+      gsap.to(
+        { year: adjustedEndValue },
+        {
+          year: nextEndYear,
+          duration: duration,
+          ease: "sine.out",
+          onUpdate: function () {
+            endYearRef.current!.textContent = Math.round(
+              this.targets()[0].year
+            ).toString();
+          },
+        }
+      );
     }
   };
 
@@ -180,11 +233,11 @@ const HistoryCircle: React.FC = () => {
             </div>
           ))}
         </div>
-        <span className={`${styles.date} ${styles.left}`}>
-          {chosenYears[0]?.year}
+        <span className={`${styles.date} ${styles.left}`} ref={startYearRef}>
+          {chosenYears[0].year}
         </span>
-        <span className={`${styles.date} ${styles.right}`}>
-          {chosenYears[chosenYears.length - 1]?.year}
+        <span className={`${styles.date} ${styles.right}`} ref={endYearRef}>
+          {chosenYears[chosenYears.length - 1].year}
         </span>
       </div>
 
