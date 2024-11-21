@@ -47,7 +47,7 @@
   font-weight: 700;
   font-family: "PT Sans", sans-serif;
   z-index: 999;
-  top: 25%;
+  top: 26%;
   &.left {
     right: 55%;
     color: #5d5fef;
@@ -163,6 +163,16 @@
   padding: 30px 0;
 }
 
+.eventsInfoContainer.active {
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.eventsInfoContainer.hidden {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
 .slide {
   min-width: 250px;
   max-width: 320px;
@@ -192,12 +202,14 @@
   justify-content: center;
   box-shadow: 0 0 20px #3777ee27;
   border-radius: 50%;
+  border: none;
   width: 40px;
   height: 40px;
   position: absolute;
   margin: 10px;
   background-color: white;
   color: #3777ee;
+  cursor: pointer;
 
   &.left {
     right: 100%;
@@ -206,4 +218,10 @@
   &.right {
     left: 100%;
   }
+}
+.navigation.active {
+  opacity: 1;
+}
+.navigation.hidden {
+  opacity: 0;
 }

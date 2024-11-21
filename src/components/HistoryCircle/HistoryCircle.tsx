@@ -23,6 +23,9 @@ interface Year {
 const HistoryCircle: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isRotating, setIsRotating] = useState(false);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   const circleRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -37,9 +40,11 @@ const HistoryCircle: React.FC = () => {
   const rotateDegree = (index: number) => index * (360 / events.length) + 30;
 
   const handleEventClick = (index: number) => {
-    if (index === activeIndex || clickTimeout.current) return;
-    if (index === events.length) index = 0;
-    if (index < 0) index = events.length - 1;
+    setIsRotating(true);
+    if (index === activeIndex || clickTimeout.current) {
+      setIsRotating(false);
+      return;
+    }
 
     setCurrentIndex(index);
 
@@ -57,7 +62,10 @@ const HistoryCircle: React.FC = () => {
       duration: duration,
       ease: "power1.inOut",
       onComplete: () => {
-        setActiveIndex(index);
+        {
+          setActiveIndex(index);
+          setIsRotating(false);
+        }
       },
     });
 
@@ -261,28 +269,43 @@ const HistoryCircle: React.FC = () => {
       <div className={styles.arrowsContainer}>
         <span>{`0${currentIndex + 1}/0${events.length}`}</span>
         <div className={styles.arrows}>
-          <div
+          <button
             className={styles.arrowCircle}
             onClick={() => handleEventClick(activeIndex - 1)}
+            disabled={activeIndex - 1 < 0}
           >
             <IoIosArrowBack />
-          </div>
-          <div
+          </button>
+          <button
             className={styles.arrowCircle}
             onClick={() => handleEventClick(activeIndex + 1)}
+            disabled={activeIndex + 1 === events.length}
           >
             <IoIosArrowForward />
-          </div>
+          </button>
         </div>
       </div>
-
-      <div className={styles.eventsInfoContainer}>
-        <div className={`${styles.navigation} ${styles.left}`} id="prevBtn">
+      <div
+        className={`${styles.eventsInfoContainer} ${
+          isRotating ? styles.hidden : styles.active
+        }`}
+      >
+        <button
+          className={`${styles.navigation} ${styles.left} ${
+            isBeginning ? styles.hidden : styles.active
+          }`}
+          id="prevBtn"
+        >
           <IoIosArrowBack />
-        </div>
-        <div className={`${styles.navigation} ${styles.right}`} id="nextBtn">
+        </button>
+        <button
+          className={`${styles.navigation} ${styles.right} ${
+            isEnd ? styles.hidden : styles.active
+          }`}
+          id="nextBtn"
+        >
           <IoIosArrowForward />
-        </div>
+        </button>
         <Swiper
           modules={[Navigation, Pagination]}
           navigation={{
@@ -293,6 +316,18 @@ const HistoryCircle: React.FC = () => {
           // pagination={{ clickable: true }}
           spaceBetween={60}
           slidesPerView="auto"
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          onReachEnd={() => {
+            setIsEnd(true);
+            setIsBeginning(false);
+          }}
+          onReachBeginning={() => {
+            setIsBeginning(true);
+            setIsEnd(false);
+          }}
         >
           {chosenYears.map((item, index) => (
             <SwiperSlide key={index} className={styles.slide}>
