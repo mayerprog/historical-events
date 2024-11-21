@@ -291,8 +291,8 @@ const HistoryCircle: React.FC = () => {
           }}
           loop={false}
           // pagination={{ clickable: true }}
-          spaceBetween={20}
-          slidesPerView={3}
+          spaceBetween={40}
+          slidesPerView="auto"
         >
           {chosenYears.map((item, index) => (
             <SwiperSlide key={index} className={styles.infoCell}>
