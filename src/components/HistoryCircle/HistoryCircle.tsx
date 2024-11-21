@@ -3,6 +3,12 @@ import styles from "./HistoryCircle.module.scss";
 import events from "./../../../mock-data.json";
 import gsap from "gsap";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface Area {
   area: string;
@@ -224,7 +230,7 @@ const HistoryCircle: React.FC = () => {
               style={{
                 transform: `rotate(${rotateDegree(
                   index
-                )}deg) translate(0, -225px)`,
+                )}deg) translate(0, -268px)`,
               }}
               onClick={() => handleEventClick(index)}
               onMouseEnter={() => handleMouseEnter(index)}
@@ -268,6 +274,35 @@ const HistoryCircle: React.FC = () => {
             <IoIosArrowForward />
           </div>
         </div>
+      </div>
+
+      <div className={styles.eventsInfoContainer}>
+        <div className={`${styles.navigation} ${styles.left}`} id="prevBtn">
+          <IoIosArrowBack />
+        </div>
+        <div className={`${styles.navigation} ${styles.right}`} id="nextBtn">
+          <IoIosArrowForward />
+        </div>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          navigation={{
+            prevEl: "#prevBtn",
+            nextEl: "#nextBtn",
+          }}
+          loop={false}
+          // pagination={{ clickable: true }}
+          spaceBetween={20}
+          slidesPerView={3}
+        >
+          {chosenYears.map((item, index) => (
+            <SwiperSlide key={index} className={styles.infoCell}>
+              <div className={styles.infoCell}>
+                <span className={styles.year}>{item.year}</span>
+                <span className={styles.text}>{item.text}</span>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       <div className={styles.axisX}></div>
