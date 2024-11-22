@@ -156,7 +156,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  right: 90px;
+  right: 75px;
   left: 75px;
   font-weight: 400;
   position: absolute;
@@ -285,11 +285,10 @@
   }
 
   .eventsInfoContainer {
-    right: 30px;
-    left: 40px;
+    right: 50px;
+    left: 50px;
     font-size: 5px;
-    padding: 30px 0;
-    width: 85%;
+    padding: 30px 10px;
   }
 
   .navigation {
@@ -308,9 +307,6 @@
 }
 
 @media (max-width: 650px) {
-  // .container {
-  //   padding: 0 30px;
-  // }
   .title {
     font-size: 25px;
   }
@@ -344,8 +340,8 @@
 
 @media (max-width: 450px) {
   .container {
-    min-height: 300px;
-    position: static;
+    min-height: 500px;
+    position: relative;
   }
   .navigation {
     display: none;
@@ -382,9 +378,8 @@
   }
 
   .eventsInfoContainer {
-    padding: 0;
     top: 60%;
-    left: 20px;
+    left: 0;
     right: 0;
   }
 }
