@@ -10,15 +10,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-interface Area {
-  area: string;
-  years: Year[];
-}
+// interface Area {
+//   area: string;
+//   years: Year[];
+// }
 
-interface Year {
-  year: string;
-  text: string;
-}
+// interface Year {
+//   year: string;
+//   text: string;
+// }
 
 const HistoryCircle: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
