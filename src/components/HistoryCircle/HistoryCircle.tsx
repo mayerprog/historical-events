@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./HistoryCircle.module.scss";
 import events from "./../../../mock-data.json";
 import gsap from "gsap";
@@ -9,6 +9,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useMediaQuery } from "react-responsive";
 
 // interface Area {
 //   area: string;
@@ -34,6 +35,14 @@ const HistoryCircle: React.FC = () => {
   const startYearRef = useRef<HTMLSpanElement>(null);
   const endYearRef = useRef<HTMLSpanElement>(null);
   const clickTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const smallerMonitor = useMediaQuery({ maxWidth: 1553, minWidth: 850 });
+  const netBook = useMediaQuery({ maxWidth: 1200 });
+  const tablet = useMediaQuery({ maxWidth: 850, minWidth: 650 });
+  const tablet2 = useMediaQuery({ maxWidth: 650 });
+  const mobile = useMediaQuery({ maxWidth: 450 });
+
+  const translate = smallerMonitor ? 225 : tablet ? 175 : tablet2 ? 150 : 268;
 
   const chosenYears = events[activeIndex].years;
 
@@ -238,7 +247,7 @@ const HistoryCircle: React.FC = () => {
               style={{
                 transform: `rotate(${rotateDegree(
                   index
-                )}deg) translate(0, -268px)`,
+                )}deg) translate(0, -${translate}px)`,
               }}
               onClick={() => handleEventClick(index)}
               onMouseEnter={() => handleMouseEnter(index)}
@@ -313,8 +322,11 @@ const HistoryCircle: React.FC = () => {
             nextEl: "#nextBtn",
           }}
           loop={false}
-          // pagination={{ clickable: true }}
-          spaceBetween={60}
+          pagination={
+            mobile ? { clickable: true, el: "#customPagination" } : false
+          }
+          spaceBetween={!tablet && !tablet2 ? 60 : 10}
+          // spaceBetween={60}
           slidesPerView="auto"
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);
@@ -339,6 +351,9 @@ const HistoryCircle: React.FC = () => {
           ))}
         </Swiper>
       </div>
+      {mobile && (
+        <div id="customPagination" className={styles.customPagination}></div>
+      )}
 
       <div className={styles.axisX}></div>
       <div className={styles.axisY}></div>

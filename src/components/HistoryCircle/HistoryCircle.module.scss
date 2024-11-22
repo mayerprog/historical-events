@@ -156,7 +156,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // max-width: 85%;
   right: 90px;
   left: 75px;
   font-weight: 400;
@@ -226,4 +225,172 @@
 }
 .navigation.hidden {
   opacity: 0;
+}
+
+.customPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 50px;
+  position: absolute;
+  cursor: pointer;
+}
+
+@media (max-width: 1553px) {
+  .title {
+    font-size: 46px;
+  }
+  .date {
+    font-size: 150px;
+    top: 30%;
+  }
+  .circleContainer {
+    width: 450px;
+    height: 450px;
+  }
+
+  .circle {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 850px) {
+  .title {
+    font-size: 33px;
+    left: 50px;
+  }
+  .date {
+    font-size: 100px;
+    top: 33%;
+  }
+  .circleContainer {
+    width: 350px;
+    height: 350px;
+  }
+
+  .circle {
+    width: 350px;
+    height: 350px;
+  }
+  .arrowsContainer {
+    left: 50px;
+  }
+
+  .eventsInfoContainer {
+    right: 30px;
+    left: 40px;
+    font-size: 5px;
+    padding: 30px 0;
+    width: 85%;
+  }
+
+  .navigation {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+  .slide {
+    min-width: 200px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 650px) {
+  // .container {
+  //   padding: 0 30px;
+  // }
+  .title {
+    font-size: 25px;
+  }
+  .date {
+    font-size: 70px;
+    top: 36%;
+  }
+
+  .circleContainer {
+    width: 300px;
+    height: 300px;
+  }
+
+  .circle {
+    width: 300px;
+    height: 300px;
+  }
+
+  .openedCircle,
+  .arrowCircle {
+    width: 40px;
+    height: 40px;
+  }
+  .text {
+    font-size: 14px;
+  }
+  .year {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .container {
+    min-height: 300px;
+    position: static;
+  }
+  .navigation {
+    display: none;
+  }
+
+  .arrowsContainer {
+    top: 85%;
+    left: 20px;
+  }
+  .title {
+    left: 20px;
+  }
+
+  .circle {
+    display: none;
+  }
+
+  .closedCircle,
+  .openedCircle {
+    display: none;
+  }
+
+  .axisX {
+    display: none;
+  }
+
+  .axisY {
+    display: none;
+  }
+
+  .date {
+    font-size: 65px;
+    top: 36%;
+  }
+
+  .eventsInfoContainer {
+    padding: 0;
+    top: 60%;
+    left: 20px;
+    right: 0;
+  }
+}
+
+@media (max-width: 350px) {
+  .date {
+    font-size: 50px;
+  }
 }
