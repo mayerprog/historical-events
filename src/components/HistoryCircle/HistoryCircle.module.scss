@@ -15,7 +15,7 @@
   font-size: 56px;
   font-weight: 700;
   position: absolute;
-  left: 5%;
+  left: 100px;
   bottom: 75%;
   color: #42567a;
   font-family: "PT Sans", sans-serif;
@@ -118,7 +118,7 @@
   flex-direction: column;
   position: absolute;
   top: 61%;
-  left: 5%;
+  left: 100px;
   color: #42567a;
   gap: 20px;
   font-family: "PT Sans", sans-serif;
@@ -156,11 +156,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90%;
+  // max-width: 85%;
+  right: 90px;
+  left: 75px;
   font-weight: 400;
   position: absolute;
   top: 73%;
-  padding: 30px 0;
+  padding: 30px;
 }
 
 .eventsInfoContainer.active {
