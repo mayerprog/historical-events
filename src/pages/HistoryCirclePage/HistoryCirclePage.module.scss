@@ -22,43 +22,6 @@
   width: 30%;
 }
 
-.circleContainer {
-  position: relative;
-  width: 536px;
-  height: 536px;
-  top: -8%;
-}
-
-.circle {
-  width: 536px;
-  height: 536px;
-  border: 0.5px solid #d0d5e0;
-  border-radius: 50%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.date {
-  position: absolute;
-  font-size: 200px;
-  font-weight: 700;
-  font-family: "PT Sans", sans-serif;
-  z-index: 999;
-  top: 26%;
-  &.left {
-    right: 55%;
-    color: #5d5fef;
-  }
-
-  &.right {
-    left: 55%;
-    color: #ef5da8;
-  }
-}
-
 .axisX,
 .axisY {
   position: absolute;
@@ -79,20 +42,6 @@
   top: 0;
 }
 
-.closedCircle,
-.openedCircle {
-  position: absolute;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.closedCircle {
-  width: 8px;
-  height: 8px;
-  background-color: rgb(106, 106, 106);
-}
-
-.openedCircle,
 .arrowCircle {
   width: 50px;
   height: 50px;
@@ -102,11 +51,8 @@
   justify-content: center;
   background-color: #f9f9f9;
   z-index: 998;
-}
-.arrowCircle {
   border-radius: 50%;
   cursor: pointer;
-
   &:hover {
     background-color: white;
   }
@@ -129,29 +75,6 @@
   gap: 10px;
 }
 
-.circleNumber {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  color: #767676;
-  font-family: "PT Sans", sans-serif;
-  pointer-events: none;
-}
-
-.circleNumber.active {
-  opacity: 1;
-  scale: 1;
-}
-
-.circleNumber.hidden {
-  opacity: 0;
-  scale: 0.8;
-}
-
 .eventsInfoContainer {
   display: flex;
   align-items: center;
@@ -172,29 +95,6 @@
 .eventsInfoContainer.hidden {
   opacity: 0;
   transition: opacity 0.4s;
-}
-
-.slide {
-  min-width: 250px;
-  max-width: 320px;
-  max-height: 200px;
-}
-
-.infoCell {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.text {
-  font-size: 20px;
-  color: #42567a;
-  max-height: 104px;
-}
-
-.year {
-  font-size: 25px;
-  color: #3877ee;
 }
 
 .navigation {
@@ -241,19 +141,6 @@
   .title {
     font-size: 46px;
   }
-  .date {
-    font-size: 150px;
-    top: 30%;
-  }
-  .circleContainer {
-    width: 450px;
-    height: 450px;
-  }
-
-  .circle {
-    width: 450px;
-    height: 450px;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -267,19 +154,7 @@
     font-size: 33px;
     left: 50px;
   }
-  .date {
-    font-size: 100px;
-    top: 33%;
-  }
-  .circleContainer {
-    width: 350px;
-    height: 350px;
-  }
 
-  .circle {
-    width: 350px;
-    height: 350px;
-  }
   .arrowsContainer {
     left: 50px;
   }
@@ -296,45 +171,15 @@
     height: 30px;
     margin: 0;
   }
-
-  .text {
-    font-size: 16px;
-  }
-  .slide {
-    min-width: 200px;
-    max-width: 250px;
-  }
 }
 
 @media (max-width: 650px) {
   .title {
     font-size: 25px;
   }
-  .date {
-    font-size: 70px;
-    top: 36%;
-  }
-
-  .circleContainer {
-    width: 300px;
-    height: 300px;
-  }
-
-  .circle {
-    width: 300px;
-    height: 300px;
-  }
-
-  .openedCircle,
   .arrowCircle {
     width: 40px;
     height: 40px;
-  }
-  .text {
-    font-size: 14px;
-  }
-  .year {
-    font-size: 16px;
   }
 }
 
@@ -342,9 +187,6 @@
   .container {
     min-height: 500px;
     position: relative;
-  }
-  .navigation {
-    display: none;
   }
 
   .arrowsContainer {
@@ -355,37 +197,15 @@
     left: 20px;
   }
 
-  .circle {
+  .axisX,
+  .axisY,
+  .navigation {
     display: none;
-  }
-
-  .closedCircle,
-  .openedCircle {
-    display: none;
-  }
-
-  .axisX {
-    display: none;
-  }
-
-  .axisY {
-    display: none;
-  }
-
-  .date {
-    font-size: 65px;
-    top: 36%;
   }
 
   .eventsInfoContainer {
     top: 60%;
     left: 0;
     right: 0;
-  }
-}
-
-@media (max-width: 350px) {
-  .date {
-    font-size: 50px;
   }
 }

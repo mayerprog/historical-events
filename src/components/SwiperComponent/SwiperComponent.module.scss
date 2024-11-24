@@ -1,0 +1,41 @@
+.slide {
+  min-width: 250px;
+  max-width: 320px;
+  max-height: 200px;
+}
+
+.infoCell {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.text {
+  font-size: 20px;
+  color: #42567a;
+  max-height: 104px;
+}
+
+.year {
+  font-size: 25px;
+  color: #3877ee;
+}
+
+@media (max-width: 850px) {
+  .text {
+    font-size: 16px;
+  }
+  .slide {
+    min-width: 200px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 650px) {
+  .text {
+    font-size: 14px;
+  }
+  .year {
+    font-size: 16px;
+  }
+}

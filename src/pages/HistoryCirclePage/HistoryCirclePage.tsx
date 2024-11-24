@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./HistoryCircle.module.scss";
+import React, { useRef, useState } from "react";
+import styles from "./HistoryCirclePage.module.scss";
 import events from "./../../../mock-data.json";
 import gsap from "gsap";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useMediaQuery } from "react-responsive";
+import SwiperComponent from "../../components/SwiperComponent/SwiperComponent";
+import CircleComponent from "../../components/CircleComponent/CircleComponent";
 
 // interface Area {
 //   area: string;
@@ -21,7 +20,7 @@ import { useMediaQuery } from "react-responsive";
 //   text: string;
 // }
 
-const HistoryCircle: React.FC = () => {
+const HistoryCirclePage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
@@ -37,7 +36,6 @@ const HistoryCircle: React.FC = () => {
   const clickTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const smallerMonitor = useMediaQuery({ maxWidth: 1553, minWidth: 850 });
-  const netBook = useMediaQuery({ maxWidth: 1200 });
   const tablet = useMediaQuery({ maxWidth: 850, minWidth: 650 });
   const tablet2 = useMediaQuery({ maxWidth: 650 });
   const mobile = useMediaQuery({ maxWidth: 450 });
@@ -60,7 +58,6 @@ const HistoryCircle: React.FC = () => {
     clickTimeout.current = setTimeout(() => {
       clickTimeout.current = null;
     }, 800);
-    console.log("index", index);
 
     ignoreMouseLeaveRef.current = index;
     const rotationDiff = (activeIndex - index) * (360 / events.length);
@@ -111,8 +108,8 @@ const HistoryCircle: React.FC = () => {
     }
     if (nextCircle) {
       gsap.to(nextCircle, {
-        width: 50,
-        height: 50,
+        width: !tablet2 ? 50 : 40,
+        height: !tablet2 ? 50 : 40,
         border: "1px solid #ccc",
         backgroundColor: "#f9f9f9",
         zIndex: "998",
@@ -234,47 +231,20 @@ const HistoryCircle: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Исторические даты</h1>
-      <div className={styles.circleContainer}>
-        <div className={styles.circle} ref={circleRef}>
-          {events.map((_, index) => (
-            <div
-              key={index}
-              className={`${
-                index === activeIndex
-                  ? styles.openedCircle
-                  : styles.closedCircle
-              }`}
-              style={{
-                transform: `rotate(${rotateDegree(
-                  index
-                )}deg) translate(0, -${translate}px)`,
-              }}
-              onClick={() => handleEventClick(index)}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={() => handleMouseLeave(index)}
-              ref={(el) => (circleRefs.current[index] = el)}
-            >
-              <span
-                className={`${styles.circleNumber} ${
-                  index === activeIndex ? styles.active : styles.hidden
-                }`}
-                ref={(el) => (circleNumberRefs.current[index] = el)}
-                style={{
-                  transform: `rotate(-${rotateDegree(index)}deg)`,
-                }}
-              >
-                {index + 1}
-              </span>
-            </div>
-          ))}
-        </div>
-        <span className={`${styles.date} ${styles.left}`} ref={startYearRef}>
-          {chosenYears[0].year}
-        </span>
-        <span className={`${styles.date} ${styles.right}`} ref={endYearRef}>
-          {chosenYears[chosenYears.length - 1].year}
-        </span>
-      </div>
+      <CircleComponent
+        circleRef={circleRef}
+        circleRefs={circleRefs}
+        circleNumberRefs={circleNumberRefs}
+        startYearRef={startYearRef}
+        endYearRef={endYearRef}
+        chosenYears={chosenYears}
+        activeIndex={activeIndex}
+        rotateDegree={rotateDegree}
+        translate={translate}
+        handleEventClick={handleEventClick}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
       <div className={styles.arrowsContainer}>
         <span>{`0${currentIndex + 1}/0${events.length}`}</span>
         <div className={styles.arrows}>
@@ -315,41 +285,15 @@ const HistoryCircle: React.FC = () => {
         >
           <IoIosArrowForward />
         </button>
-        <Swiper
-          modules={[Navigation, Pagination]}
-          navigation={{
-            prevEl: "#prevBtn",
-            nextEl: "#nextBtn",
-          }}
-          loop={false}
-          pagination={
-            mobile ? { clickable: true, el: "#customPagination" } : false
-          }
-          spaceBetween={!tablet && !tablet2 ? 60 : 10}
-          // spaceBetween={60}
-          slidesPerView="auto"
-          onSlideChange={(swiper) => {
-            setIsBeginning(swiper.isBeginning);
-            setIsEnd(swiper.isEnd);
-          }}
-          onReachEnd={() => {
-            setIsEnd(true);
-            setIsBeginning(false);
-          }}
-          onReachBeginning={() => {
-            setIsBeginning(true);
-            setIsEnd(false);
-          }}
-        >
-          {chosenYears.map((item, index) => (
-            <SwiperSlide key={index} className={styles.slide}>
-              <div className={styles.infoCell}>
-                <span className={styles.year}>{item.year}</span>
-                <span className={styles.text}>{item.text}</span>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+
+        <SwiperComponent
+          mobile={mobile}
+          tablet={tablet}
+          tablet2={tablet2}
+          setIsBeginning={setIsBeginning}
+          setIsEnd={setIsEnd}
+          chosenYears={chosenYears}
+        />
       </div>
       {mobile && (
         <div id="customPagination" className={styles.customPagination}></div>
@@ -361,4 +305,4 @@ const HistoryCircle: React.FC = () => {
   );
 };
 
-export default HistoryCircle;
+export default HistoryCirclePage;
