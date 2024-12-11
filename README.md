@@ -28,6 +28,8 @@ If you don't wanna use yarn:
 - CSS Flexbox
 - SASS
 
+## Contacts
+
 <p>Mayra Tulegenova</p>
 
 - Telegram: [mayerprog](https://t.me/mayerprog)
