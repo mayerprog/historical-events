@@ -27,6 +27,7 @@ If you don't wanna use yarn:
 - Swiper
 - CSS Flexbox
 - SASS
+- Webpack
 
 ## Contacts
 
