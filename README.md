@@ -11,13 +11,13 @@ Then:
 
 - Clone the repository with `git clone https://github.com/mayerprog/historical-events.git`
 - Install dependencies `yarn install`
-- Run `yarn start` to run the project on Expo Go app
+- Run `yarn start` to run the project
 
 If you don't wanna use yarn:
 
 - Clone the repository with `git clone https://github.com/mayerprog/historical-events.git`
 - Install dependencies `npm install`
-- Run `npm start` to run the project on Expo Go app
+- Run `npm start` to run the project
 
 ## Tecnologies
 
