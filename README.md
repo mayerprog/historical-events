@@ -1,5 +1,8 @@
 <h1 align='center'>Historical Events - UI Overview</h1>
 
+![Mobile](./assets/mobile.gif)
+![Desktop](./assets/desktop.gif)
+
 # Get Started
 
 To run this web app you need (if not installed yet):
