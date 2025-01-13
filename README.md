@@ -1,7 +1,7 @@
 <h1 align='center'>Historical Events - UI Overview</h1>
 
-![Mobile](/src/assets/mobile.gif)
 ![Desktop](/src/assets/desktop.gif)
+![Mobile](/src/assets/mobile.gif)
 
 # Get Started
 
